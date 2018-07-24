@@ -44,7 +44,8 @@ func main() {
 	dintalkURL = flag.String("w", "", "要提醒的钉钉机器人的webhook地址，多个地址之间用逗号分隔")
 	taskSpec = flag.String("t", "0/10 * * * * *", "定时任务的定时间隔字符，具体参考：https://beego.me/docs/module/toolbox.md#task")
 	flag.Parse()
-
+	log.Println("dingTalkUtl:" + *dintalkURL)
+	log.Println("taskSpec:" + *taskSpec)
 	log.Println("begin task ")
 	//创建定时任务
 	////  0/30 * * * * *                        每 30 秒 执行
@@ -91,6 +92,7 @@ func dingTalkSellWaring(domain string) {
 	dintalkURLs := strings.Split(*dintalkURL, ",")
 	for _, w := range dintalkURLs {
 		u := strings.Replace(w, " ", "", -1)
+		log.Println(u)
 		sendMsgToDingtalk(domain+" 可以注册了！", u)
 	}
 }
